@@ -1,6 +1,6 @@
 export PATH=$PATH:/opt
 
-if[[ -z "$1"]]; then
+if [[ -z "$1" ]]; then
 echo ""
 echo "No Terraform path provided"
 echo "SYNTAX = ./plan.sh <PATH>"
