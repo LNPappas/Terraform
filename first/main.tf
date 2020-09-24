@@ -24,3 +24,9 @@ resource "google_compute_instance" "default" {
 # terraform plan instanceName/
 # terraform apply instanceName/
 # terraform destroy instanceName/
+
+# for scripts: first make executable with chmod u+x name.sh for each
+#  then run sequentially 
+# ./plan name/
+# ./apply name/
+# ./destroy name/
