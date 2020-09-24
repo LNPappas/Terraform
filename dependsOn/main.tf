@@ -10,9 +10,9 @@ variable "zone" { default = "us-east1-b" }
 
 # Use depends when one instance depends on another instance 
 # Used for ordering instance deployment
-resource "google_compute_instance" "first" {
+resource "google_compute_instance" "default" {
     count = "1"
-    name = "firstJoin-${count.index+1}"
+    name = "defaultJoin-${count.index+1}"
     machine_type = var.machine_type["dev"]
     zone = var.zone
 
@@ -28,6 +28,9 @@ resource "google_compute_instance" "first" {
 
     service_account {
         scopes = ["userinfo-email", "compute-ro", "storage-ro"]
+        
+        # this default resource cannot be built until the second is complete
+        depends_on = ["google_compute_instance.second"]
     }
 }
 
@@ -49,10 +52,16 @@ resource "google_compute_instance" "second" {
 
     service_account {
         scopes = ["userinfo-email", "compute-ro", "storage-ro"]
-        depends_on
+        
+        # this second resource cannot be built until the default is complete
+        # depends_on = ["google_compute_instance.default"]
     }
 }
 
 output "name" { value = "${google_compute_instance.default.name}" }
 output "machine_type" { value = "${google_compute_instance.default.machine_type}" }
 output "zone" { value = "${google_compute_instance.default.zone}" }
+
+output "name" { value = "${google_compute_instance.second.name}" }
+output "machine_type" { value = "${google_compute_instance.second.machine_type}" }
+output "zone" { value = "${google_compute_instance.second.zone}" }
