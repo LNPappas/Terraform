@@ -12,7 +12,7 @@ provider "google" {
   credentials = TF_VAR_GOOGLE_CREDENTIALS
 
   project = TF_VAR_PROJECT_ID
-  region  = "us-central1"
+  region  = var.region
   zone    = "us-central1-c"
 }
 
