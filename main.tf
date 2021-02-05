@@ -1,20 +1,20 @@
-# terraform {
-#   required_providers {
-#     google = {
-#       source  = "hashicorp/google"
-#       version = "3.5.0"
-#     }
-#   }
-# }
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "3.5.0"
+    }
+  }
+}
 
-# provider "google" {
+provider "google" {
 
-#   credentials = TF_VAR_GOOGLE_CREDENTIALS
+  //credentials = TF_VAR_GOOGLE_CREDENTIALS
 
-#   project = TF_VAR_PROJECT_ID
-#   region  = var.region
-#   zone    = "us-central1-c"
-# }
+  project = "demotfcloud"
+  region  = var.region
+  zone    = "us-central1-c"
+}
 
 resource "google_storage_bucket" "test-bucket" {
   name          = "terraform-cloud-test-bucket"
