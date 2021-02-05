@@ -9,9 +9,9 @@ terraform {
 
 provider "google" {
 
-  credentials = env.TF_VAR_GOOGLE_CREDENTIALS
+  credentials = TF_VAR_GOOGLE_CREDENTIALS
 
-  project = env.TF_VAR_PROJECT_ID
+  project = TF_VAR_PROJECT_ID
   region  = "us-central1"
   zone    = "us-central1-c"
 }
