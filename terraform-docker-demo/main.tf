@@ -1,25 +1,36 @@
 terraform {
   required_providers {
-    docker = {
-      source = "terraform-providers/docker"
+    google = {
+      source  = "hashicorp/google"
+      version = "3.5.0"
     }
   }
 }
 
-provider "docker" {
-  host    = "npipe:////.//pipe//docker_engine"
+provider "google" {
+
+  credentials = env.GOOGLE_CREDENTIALS
+
+  project = env.PROJECT_ID
+  region  = "us-central1"
+  zone    = "us-central1-c"
 }
 
-resource "docker_image" "nginx" {
-  name         = "nginx:latest"
-  keep_locally = false
-}
+resource "google_storage_bucket" "test-bucket" {
+  name          = "terraform-cloud-test-bucket"
+  location      = "us-central1-c"
+  force_destroy = true
 
-resource "docker_container" "nginx" {
-  image = docker_image.nginx.latest
-  name  = "tutorial"
-  ports {
-    internal = 80
-    external = 8000
+  uniform_bucket_level_access = true
+
+  website {
+    main_page_suffix = "index.html"
+    not_found_page   = "404.html"
+  }
+  cors {
+    origin          = ["http://image-store.com"]
+    method          = ["GET", "HEAD", "PUT", "POST", "DELETE"]
+    response_header = ["*"]
+    max_age_seconds = 3600
   }
 }
