@@ -12,7 +12,7 @@ provider "google" {
   //credentials = TF_VAR_GOOGLE_CREDENTIALS
 
   project = "demotfcloud"
-  region  = var.region
+  region  = "us-central1"
   zone    = "us-central1-c"
 }
 
