@@ -6,6 +6,6 @@
 #   description = "Google project id/name"
 # }
 
-# variable "region" {
-#   description = "region of project"
-# }
+variable "region" {
+  description = "region of project"
+}
